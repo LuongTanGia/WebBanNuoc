@@ -1,0 +1,181 @@
+﻿@using WebBanNuoc.Models.Home;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*@Styles.Render("~/Content/css")*@
+    <link href="~/AdminStyle/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/MainLayout.css" rel="stylesheet" />
+    
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="logo">
+                    <h1>
+                        <img src="~/Content/images/logo2.png" style="width:15%; height:10%; object-fit: cover; color:white;" />
+                        <a href="#">HHTT <span style="color:#000">Team</span></a>
+                    </h1>
+                    <p style="color: #00BFFF">Drinks Shopping Store</p>
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                @*<div class="account">
+           <ul>
+               <li>
+                   <div class="hidden-xs">
+                       <h4><a>Call</a></h4>
+                       <p>018##-######</p>
+                   </div>
+
+                   <div class="visible-xs">
+
+                       <p>018##-######</p>
+                   </div>
+
+               </li>
+           </ul>
+
+        </div>*@
+               
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserName"] != null)
+                    {
+
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="fa fa-user fa-pull-left" style="font-size:24px"></i>@Session["Name"] <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Edit Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Logout","AccountTest")">Log out </a></li>
+                            </ul>
+                              
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+
+                            <a href="@Url.Action("TestLogin","AccountTest")"><i class="fa fa-user-circle fa-pull-left" style="font-size:24px"></i>Login</a>
+
+                        </li>
+                    }
+
+
+
+
+
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="fa fa-shopping-cart fa-pull-left" style="font-size:24px"></i>Cart() <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if (Session["cart"] != null)
+                            {
+                                foreach (Item item in (List<Item>)Session["cart"])
+                                {
+                                    <li>
+
+                                        <a href="@Url.Action("RemoveFromCart", "Home", new { productId=item.Product.ProductId})">
+                                            @item.Product.ProductName (@item.Quantity)
+                                            <i class="fa fa-times fa-pull-right"></i>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Checkout","Home")">Checkout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav-menus">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a style="border-radius: 1em;" href="#">Home</a></li>
+                            <li><a style="border-radius: 1em;" href="#">Contact</a></li>
+                            <li><a style="border-radius: 1em;" href="#">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @RenderBody()
+            <hr />
+            <footer class="text-center text-white " style="background: #242628; color: white; width:100%;margin-bottom:-40px">
+                <div class="container p-4">
+
+                    <section>
+                        <div class="row " style="display:flex;">
+                            <div class="col-sm-2">
+                                <div class="single-widget">
+                                    <img src="~/Content/images/member1.png" style="width:70%" alt="Alternate Text" />
+                                    <div class="nav nav-pills nav-stacked">
+                                        <strong style="margin-left:5px">Mã Phúc Huy</strong><br />
+                                        <h5 style="margin-left:10px">1911066587</h5>
+                                        <h5 style="margin-left:10px">19DTHE1</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="single-widget">
+                                    <img src="~/Content/images/member2.jpg" style="width:70%" alt="Alternate Text" />
+                                    <div class="nav nav-pills nav-stacked">
+                                        <strong style="margin-left:5px">Nguyễn Duy Tân</strong><br />
+                                        <h5 style="margin-left:10px">1911066620</h5>
+                                        <h5 style="margin-left:10px">19DTHE1</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="single-widget">
+                                    <img src="~/Content/images/member3.jpg" style="width:70%" alt="Alternate Text" />
+                                    <div class="nav nav-pills nav-stacked">
+                                        <strong style="margin-left:5px">Vũ Quốc Gia Huy</strong><br />
+                                        <h5 style="margin-left:10px">1911066133</h5>
+                                        <h5 style="margin-left:10px">19DTHE1</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="single-widget">
+                                    <img src="~/Content/images/member4.jpg" style="width:50%;height:150px" alt="Alternate Text" />
+                                    <div class="nav nav-pills nav-stacked">
+                                        <strong style="margin-left:5px">Tăng Thiên Tứ</strong><br />
+                                        <h5 style="margin-left:10px">1911067332</h5>
+                                        <h5 style="margin-left:10px">19DTHE1</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div>@Html.Partial("~/Views/Nuoc/Map.cshtml")</div>*@
+
+                        </div>
+                    </section>
+                </div>
+                <div class="text-center p-3" style="background-color: #8a8888;">
+                    @DateTime.Now.Year - Đại Lý Nước HHTT
+                </div>
+            </footer>
+        </div>
+        </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

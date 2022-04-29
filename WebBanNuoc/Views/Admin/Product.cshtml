@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebBanNuoc.DAL.Tbl_Product>
+
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Product
+        <a href="../Admin/ProductAdd" class="btn btn-info pull-right fa fa-plus">Add New</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Category Name</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Product</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        int count = item.ProductId;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.ProductName</td>
+                            <td>
+
+                                @Html.ActionLink("Edit", "ProductEdit", new { productId = item.ProductId })
+                            </td>
+
+                        </tr>
+                        count++;
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
